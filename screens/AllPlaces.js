@@ -1,5 +1,6 @@
-import { FlatList } from "react-native";
+import { View, Text } from "react-native";
+import PlacesList from "../components/Places/PlacesList";
 
-export default function AllPlaces({ places }) {
-  return <FlatList data={places} keyExtractor={(item) => item.id} />;
+export default function AllPlaces() {
+  return <PlacesList />;
 }

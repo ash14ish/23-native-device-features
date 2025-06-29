@@ -7,10 +7,28 @@ import AllPlaces from "./screens/AllPlaces";
 import AddPlace from "./screens/AddPlace";
 import PlaceDetails from "./screens/PlaceDetails";
 import IconButton from "./components/UI/IconButton";
-import { Text } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
+import { useFonts } from "expo-font";
+import { useEffect } from "react";
+import * as SplashScreen from "expo-splash-screen";
+import Map from "./screens/Map";
 
 export default function App() {
   const Stack = createNativeStackNavigator();
+
+  const [fontsLoaded, fontError] = useFonts({
+    ...Ionicons.font,
+  });
+
+  useEffect(() => {
+    if (fontsLoaded || fontError) {
+      SplashScreen.hideAsync();
+    }
+  }, [fontsLoaded, fontError]);
+
+  if (!fontsLoaded && !fontError) {
+    return null;
+  }
 
   return (
     <>
@@ -28,8 +46,8 @@ export default function App() {
             name={APP_SCREENS?.ALL_PLACES_SCREEN}
             component={AllPlaces}
             options={({ navigation }) => ({
-              title: "All Places",
-              headerLeft: ({ tintColor }) => (
+              title: "Your Places",
+              headerRight: ({ tintColor }) => (
                 <IconButton
                   icon="add"
                   size={24}
@@ -49,6 +67,8 @@ export default function App() {
               title: "Add a new Place",
             }}
           />
+
+          <Stack.Screen name={APP_SCREENS?.MAP_SCREEN} component={Map} />
         </Stack.Navigator>
       </NavigationContainer>
     </>

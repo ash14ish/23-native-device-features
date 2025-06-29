@@ -1,16 +1,17 @@
 import { StatusBar } from "expo-status-bar";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { APP_SCREENS } from "./constants/constants";
+import { APP_SCREENS } from "./constants/screens-name";
 import { Colors } from "./constants/colors";
 import AllPlaces from "./screens/AllPlaces";
 import AddPlace from "./screens/AddPlace";
 import PlaceDetails from "./screens/PlaceDetails";
 import IconButton from "./components/UI/IconButton";
-
-const Stack = createNativeStackNavigator();
+import { Text } from "react-native";
 
 export default function App() {
+  const Stack = createNativeStackNavigator();
+
   return (
     <>
       <StatusBar style="auto" />
@@ -27,7 +28,8 @@ export default function App() {
             name={APP_SCREENS?.ALL_PLACES_SCREEN}
             component={AllPlaces}
             options={({ navigation }) => ({
-              headerRight: ({ tintColor }) => (
+              title: "All Places",
+              headerLeft: ({ tintColor }) => (
                 <IconButton
                   icon="add"
                   size={24}
@@ -37,9 +39,9 @@ export default function App() {
                   }
                 />
               ),
-              title: "All Places",
             })}
           />
+
           <Stack.Screen
             name={APP_SCREENS?.ADD_PLACE_SCREEN}
             component={AddPlace}
